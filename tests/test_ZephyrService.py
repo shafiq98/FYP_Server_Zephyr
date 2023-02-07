@@ -11,4 +11,5 @@ class Test(TestCase):
         zs.start_zephyr_instance()
 
     def test_proc_kill(self):
-        zs.kill_QEMU()
+        # use this test method to kill stray QEMU instances and consoles when server unexpectedly quits
+        zs.complete_kill()
