@@ -5,7 +5,7 @@ import sys
 import logging
 import psutil
 
-from src.utilities.Constants import WINDOWS, PROCNAME
+from src.utilities.Constants import *
 
 # Base Configuration
 logging.basicConfig(
@@ -19,15 +19,7 @@ log = logging.getLogger(__name__)
 def start_zephyr_instance():
     # this function will start a zephyr instance, but not kill it
     log.debug("Running on {} OS".format(sys.platform))
-
-    platform = sys.platform
-    if (platform == WINDOWS):
-        path = "windows_script.bat"
-        subprocess.Popen(path)
-        # print("New PID: {}".format(proc.pid))
-        list_process()
-    else:
-        log.debug("Sorry, {} is not supported yet".format(platform))
+    subprocess.call(r"C:\Users\pcadmin\Documents\GitHub\FYP_Server_Zephyr\resources\windows_script.bat")
     return
 
 

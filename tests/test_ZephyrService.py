@@ -1,8 +1,5 @@
 from unittest import TestCase
 import src.Service.ZephyrService as zs
-import os
-import signal
-import psutil
 
 
 class Test(TestCase):
