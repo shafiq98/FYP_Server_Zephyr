@@ -20,6 +20,8 @@ current_platform = sys.platform
 
 
 def start_zephyr_instance(process: subprocess.Popen[str] = None) -> subprocess.Popen[str]:
+
+    log.debug("Starting new Zephyr Instance")
     # kill any QEMU Instance running before starting a new zephyr one
     complete_kill(process)
 
@@ -27,33 +29,20 @@ def start_zephyr_instance(process: subprocess.Popen[str] = None) -> subprocess.P
         # this function will start a zephyr instance, but not kill it
         log.debug("Running on {} OS".format(current_platform))
         # subprocess.call(BASH_PATH)
-        process = subprocess.Popen(BASH_PATH, start_new_session=True)
+        # process = subprocess.Popen(BASH_PATH, start_new_session=True)
+        process = subprocess.Popen(r"C:\Users\pcadmin\Documents\GitHub\FYP_Server_Zephyr\resources\windows_script.bat", start_new_session=True)
         # subprocess.call(r"C:\Users\pcadmin\Documents\GitHub\FYP_Server_Zephyr\resources\windows_script.bat")
     else:
         log.debug("Sorry, {} is not supported yet. Exiting now...".format(current_platform))
         return None
 
     log.debug("Current Process ID = {}".format(process.pid))
-    time.sleep(30)
-    complete_kill(process)
+    # time.sleep(30)
+    # complete_kill(process)
     return process
 
 
-def list_process(processID: subprocess.DETACHED_PROCESS = None):
-    dict_pids = {
-        p.info["pid"]: p.info["name"]
-        for p in psutil.process_iter(attrs=["pid", "name"])
-    }
-    if (processID in dict_pids.keys()):
-        log.debug("Found Process ID".format(processID))
-    else:
-        log.debug("Not Found")
-    log.debug(json.dumps(dict_pids, indent=4))
-    process = psutil.Process(processID)
-    process.kill()
-
-
-def complete_kill(process: subprocess.Popen[str] = None):
+def complete_kill(process_id=None):
     for proc in psutil.process_iter():
         # check whether the process name matches
         if proc.name() == PROCNAME:
@@ -62,9 +51,13 @@ def complete_kill(process: subprocess.Popen[str] = None):
             log.debug("Killed QEMU Instance")
         # kill any existing processes if any
 
-    if (process != None):
-        log.debug("Killing Process {}".format(process.pid))
-        process.kill()
-        log.debug("Process Killed successfully")
-        time.sleep(10)
+    if (process_id != None):
+        try:
+            process = psutil.Process(process_id)
+            log.debug("Killing Process {}".format(process_id))
+            process.kill()
+            log.debug("Process Killed successfully")
+        except psutil.NoSuchProcess:
+            log.error("Process {} was already closed".format(process_id))
+
     return

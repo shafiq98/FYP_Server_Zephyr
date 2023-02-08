@@ -127,3 +127,5 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+/resources/model.cpp
+/resources/model2.cpp

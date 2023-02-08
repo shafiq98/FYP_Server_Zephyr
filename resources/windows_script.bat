@@ -1,4 +1,3 @@
-echo "Hello World"
 cd C:\Users\pcadmin\Documents\CodingProjects\ZephyrOS\zephyrproject
 call .venv/Scripts/activate.bat
 cd zephyr/
