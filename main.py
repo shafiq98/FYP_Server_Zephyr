@@ -1,5 +1,7 @@
 import logging
+import time
 
+import psutil
 # Web Server Imports
 from flask import Flask, request, session, flash, Response
 from werkzeug.utils import secure_filename
@@ -23,7 +25,7 @@ logging.basicConfig(
 log = logging.getLogger(__name__)
 
 zs.complete_kill()
-zs.start_zephyr_instance()
+existingProcess = zs.start_zephyr_instance()
 
 def restart_zephyr_instance():
     zs.complete_kill(session.get('process'))
@@ -58,4 +60,7 @@ def retrieve_model_route():
 
 
 if (__name__ == "__main__"):
-    app.run(host='0.0.0.0', port=8081, debug=True)
+    # app.run(host='0.0.0.0', port=8081, debug=True)
+    log.debug("Sleep(40s) starts now...")
+    time.sleep(40)
+    zs.complete_kill(existingProcess.pid)
