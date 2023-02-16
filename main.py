@@ -1,18 +1,15 @@
 import logging
-import time
 
-import psutil
 # Web Server Imports
 from flask import Flask, request, session, flash, Response
-from werkzeug.utils import secure_filename
 
 # utilities import
 from settings import UPLOAD_FOLDER
+# Controller imports
+from src.Controller import ModelController as MC
 # Service imports
 from src.Service import ZephyrService as ZS
 from src.utilities.Constants import *
-# Controller imports
-from src.Controller import ModelController as MC
 
 app = Flask(__name__)
 app.secret_key = "zephyrkeysupersecret"
@@ -28,9 +25,9 @@ log = logging.getLogger(__name__)
 # NOTE: start_zephyr_instance() will kill existing QEMU instances
 existingProcess = ZS.start_zephyr_instance()
 
-def restart_zephyr_instance():
-    ZS.complete_kill(session.get('process'))
-    session['process'] = ZS.start_zephyr_instance().pid
+# def restart_zephyr_instance():
+#     ZS.complete_kill(session.get('process'))
+#     session['process'] = ZS.start_zephyr_instance().pid
 
 @app.route("/retrieve_model", methods=[POST])
 def retrieve_model_route():

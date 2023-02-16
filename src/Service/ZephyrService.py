@@ -1,13 +1,10 @@
-import json
 import logging
+import os
 import subprocess
 import sys
-import time
-import os
 
 import psutil
 
-from settings import BASH_PATH
 from src.utilities.Constants import *
 
 # Base Configuration
@@ -21,7 +18,6 @@ current_platform = sys.platform
 
 
 def start_zephyr_instance(process: subprocess.Popen[str] = None) -> subprocess.Popen[str]:
-
     log.debug("Starting new Zephyr Instance")
     # kill any QEMU Instance running before starting a new zephyr one
     complete_kill(process)

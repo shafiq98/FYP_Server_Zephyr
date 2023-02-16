@@ -24,6 +24,8 @@ if (current_platform == WINDOWS):
     OUTGOING_C_PATH = OUTGOING_C_PATH_WINDOWS
 else:
     OUTGOING_C_PATH = OUTGOING_C_PATH_LINUX
+
+
 def retrieve_model_controller(file: FileStorage):
     if file:
         MS.store_model_locally(UPLOAD_FOLDER, file)
