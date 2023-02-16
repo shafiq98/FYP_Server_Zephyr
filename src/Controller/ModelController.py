@@ -19,6 +19,7 @@ logging.basicConfig(
     handlers=[logging.StreamHandler()]
 )
 log = logging.getLogger(__name__)
+
 current_platform = sys.platform
 if (current_platform == WINDOWS):
     OUTGOING_C_PATH = OUTGOING_C_PATH_WINDOWS

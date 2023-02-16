@@ -25,13 +25,9 @@ log = logging.getLogger(__name__)
 # NOTE: start_zephyr_instance() will kill existing QEMU instances
 existingProcess = ZS.start_zephyr_instance()
 
-# def restart_zephyr_instance():
-#     ZS.complete_kill(session.get('process'))
-#     session['process'] = ZS.start_zephyr_instance().pid
-
 @app.route("/retrieve_model", methods=[POST])
 def retrieve_model_route():
-    session['process'] = ZS.start_zephyr_instance().pid
+    session['process'] = existingProcess.pid
     if 'model' not in request.files:
         flash('No file part')
         return Response("{'message: 'Please name your file as model and try again'}", status=400,
@@ -49,7 +45,7 @@ def retrieve_model_route():
     else:
         MC.retrieve_model_controller(file)
         ZS.start_zephyr_instance(session.get('process'))
-    return Response("{'message: 'File saved successfully'}", status=200, mimetype='application/json')
+    return Response("{'message: 'Zephyr Server updated accordingly'}", status=200, mimetype='application/json')
 
 
 if (__name__ == "__main__"):
