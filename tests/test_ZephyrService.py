@@ -16,4 +16,3 @@ class Test(TestCase):
     def test_proc_kill(self):
         # use this test method to kill stray QEMU instances and consoles when server unexpectedly quits
         zs.complete_kill()
-        process = psutil.Process(18399)
