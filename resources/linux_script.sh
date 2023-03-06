@@ -11,5 +11,6 @@ west build -p always -d build/server -b qemu_x86 -t run \
       -DOVERLAY_CONFIG="overlay-e1000.conf prj.conf" \
       -DCONFIG_ETH_QEMU_IFACE_NAME=\"zeth.1\" \
       -DCONFIG_ETH_QEMU_EXTRA_ARGS=\"mac=00:00:5e:00:53:01\"
+
 echo "Exiting Script"
 exit 0

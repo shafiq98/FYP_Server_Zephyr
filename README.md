@@ -58,7 +58,7 @@ python main.py
 ### Terminal 6
 ```
 cd ~/Documents/CodingProjects/Python/FYP_Tensor_Server
-source .venv/bin/activate
+source venv/bin/activate
 python src/app.py
 ```
 ### Terminal 7
@@ -66,32 +66,21 @@ python src/app.py
 cd ~/zephyrproject
 source .venv/bin/activate
 cd zephyr/
-west build -p always -d build/real_client1 -b qemu_x86 -t run \
-      samples/net/sockets/tensor_echo_client_2 -- \
-      -DOVERLAY_CONFIG=overlay-e1000.conf \
-      -DCONFIG_NET_CONFIG_MY_IPV4_ADDR=\"203.0.113.1\" \
-      -DCONFIG_NET_CONFIG_PEER_IPV4_ADDR=\"198.51.100.1\" \
-      -DCONFIG_NET_CONFIG_MY_IPV6_ADDR=\"2001:db8:200::1\" \
-      -DCONFIG_NET_CONFIG_PEER_IPV6_ADDR=\"2001:db8:100::1\" \
-      -DCONFIG_NET_CONFIG_MY_IPV4_GW=\"198.51.100.1\" \
-      -DCONFIG_ETH_QEMU_IFACE_NAME=\"zeth.2\"
-      -DCONFIG_ETH_QEMU_EXTRA_ARGS=\"mac=00:00:5e:00:53:02\"
+west build -p always -d build/real_client_1 -b qemu_x86 -t run \
+   samples/net/sockets/tensor_echo_client_2 -- \
+   -DOVERLAY_CONFIG="overlay-e1000.conf prj.conf" \
+   -DCONFIG_ETH_QEMU_IFACE_NAME=\"zeth.2\"
+
 ```
 ### Terminal 8
 ```
 cd ~/zephyrproject
 source .venv/bin/activate
 cd zephyr/
-west build -p always -d build/real_client2 -b qemu_x86 -t run \
-      samples/net/sockets/tensor_echo_client_2 -- \
-      -DOVERLAY_CONFIG=overlay-e1000.conf \
-      -DCONFIG_NET_CONFIG_MY_IPV4_ADDR=\"203.0.113.1\" \
-      -DCONFIG_NET_CONFIG_PEER_IPV4_ADDR=\"198.51.100.1\" \
-      -DCONFIG_NET_CONFIG_MY_IPV6_ADDR=\"2001:db8:200::1\" \
-      -DCONFIG_NET_CONFIG_PEER_IPV6_ADDR=\"2001:db8:100::1\" \
-      -DCONFIG_NET_CONFIG_MY_IPV4_GW=\"198.51.100.1\" \
-      -DCONFIG_ETH_QEMU_IFACE_NAME=\"zeth.3\"
-      -DCONFIG_ETH_QEMU_EXTRA_ARGS=\"mac=00:00:5e:00:53:02\"
+west build -p always -d build/real_client_2 -b qemu_x86 -t run \
+   samples/net/sockets/tensor_echo_client_2 -- \
+   -DOVERLAY_CONFIG="overlay-e1000.conf prj.conf" \
+   -DCONFIG_ETH_QEMU_IFACE_NAME=\"zeth.3\"
 ```
 
 ### Terminal 9
