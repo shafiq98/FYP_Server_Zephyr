@@ -20,6 +20,19 @@ Server to update Zephyr files and restart QEMU Process
 2. FYP_Tensor_Server (TODO: Add URL to this repo)
 3. Zephyr tensor_server (TODO: Add URL to this repo)
 
+# Program Flow
+```mermaid
+graph LR
+A[Start up] --> B
+B[Wait for model update] -->C(Receive updated model)
+    C --> D{Is there any Zephyr instance Running?}
+    D -->|Yes| E[Kill Instances]
+    D -->|No| F[Start New Instances]
+    E --> F
+    F --> B
+```
+
+
 ## Instructions
 ### Terminal 1
 ```
