@@ -31,7 +31,57 @@ B[Wait for model update] -->C(Receive updated model)
     E --> F
     F --> B
 ```
+```mermaid
+graph LR
+    subgraph 1: Client - Server
+        A2
+        B2
+    end
+    
+    subgraph 2: ML Server
+        B3
+    end
 
+    subgraph 3: Update Server
+        A4
+    end
+
+    A2[Zephyr Client] -->|Send Image| B2[Zephyr Server]
+    B2 -->|Run Inference| B2
+    B2 -->|Return Inference Result| A2
+
+    A2 -->|Send Training Data| B3[ML Server]
+    B3 -->|Retrain model| B3
+
+    A4 -- Generate Updated OS Image --> A4
+    A4[Update Server] -->|Send Updated OS Image| B2
+    B3 -->|Send Updated Model| A4
+```
+
+```mermaid
+sequenceDiagram
+    autonumber
+    Zephyr Client ->> Zephyr Server: Transmit Image Array
+    Zephyr Server -->> Zephyr Server: Run Inference
+    Zephyr Server ->> Zephyr Client: Return Result
+```
+```mermaid
+sequenceDiagram
+    autonumber
+    Zephyr Client ->> ML Server: Transmit Training Image
+    ML Server --> ML Server: Check if dataset has changed enough
+    ML Server --> ML Server: Trigger Learning
+    ML Server ->> Update Server: Transmit new TFLite Model
+```
+```mermaid
+sequenceDiagram
+    autonumber
+    ML Server ->> Update Server: Transmit new TFLite Model
+    Update Server ->> Update Server: Build new OS Image
+    Update Server ->> Update Server: Find all existing Zephyr Server Instances
+    Update Server ->> Update Server: Kill Zephyr Server Instances
+    Update Server ->> Zephyr Server: Start up new Zephyr Instance with new image
+```
 
 ## Instructions
 ### Terminal 1
